@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.1
+  walkAnimAngle: 0.3
 --- !u!4 &765799708
 Transform:
   m_ObjectHideFlags: 0
