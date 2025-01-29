@@ -8,17 +8,20 @@ using UnityEngine.Serialization;
 public class PlayerController : MonoBehaviour
 
 {
+    private static readonly int MinMaxRotation = Shader.PropertyToID("_MinMaxRotation");
+
     //Components
     private Rigidbody _rb;
     private Material _material;
     //Walk animation variables
-    private float animTimer;
-    private float walkAnimAngle = 0.3f;
+    private float _animTimer;
+    private const float WalkAnimAngle = 0.3f;
+
     //Movement variables
     [Header("Movement")]
     public float speed;
     private Vector2 _movement; 
-    private bool isMoving()
+    private bool IsMoving()
     {
         return _movement.x != 0 || _movement.y != 0;
     }
@@ -36,26 +39,26 @@ public class PlayerController : MonoBehaviour
         //Finds player movement direction
         GetMovementAxis();
         //Sets the rotation of player UVs in shader
-        _material.SetFloat("_MinMaxRotation",GetSpriteRotation(walkAnimAngle));
+        _material.SetFloat(MinMaxRotation,GetSpriteRotation(WalkAnimAngle));
         //Handles the animation looping
         //TODO: Fix the Mathf.PI/5 so that it returns to 0 rather than going all the way to the right first
-        if (isMoving())
+        if (IsMoving())
         {
-            animTimer += Time.deltaTime;
-            if (animTimer > Mathf.PI/5)
+            _animTimer += Time.deltaTime;
+            if (_animTimer > Mathf.PI/5)
             {
-                animTimer = 0;
+                _animTimer = 0;
             }
         }
-        else if (!isMoving())
+        else if (!IsMoving())
         {
-            if (animTimer > Mathf.PI/5 || animTimer == 0)
+            if (_animTimer > Mathf.PI/5 || _animTimer == 0)
             {
-                animTimer = 0;
+                _animTimer = 0;
             }
-            else if (animTimer < Mathf.PI/5)
+            else if (_animTimer < Mathf.PI/5)
             {
-                animTimer += Time.deltaTime;
+                _animTimer += Time.deltaTime;
             }
         }
     }
@@ -69,7 +72,7 @@ public class PlayerController : MonoBehaviour
     private float GetSpriteRotation(float angle)
     {
         //Returns the angle to set the UVs in shader to
-        return Mathf.Sin((animTimer-(Mathf.PI)) * 10) * angle;
+        return Mathf.Sin((_animTimer-(Mathf.PI)) * 10) * angle;
 
     }
 
