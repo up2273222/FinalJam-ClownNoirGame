@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Unlit/BlackWhiteShader"
 {
     Properties
@@ -7,7 +9,9 @@ Shader "Unlit/BlackWhiteShader"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque"}
+        Cull Off
+
 
 
         Pass
@@ -16,6 +20,7 @@ Shader "Unlit/BlackWhiteShader"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
+            #include "AutoLight.cginc"
 
             struct MeshData
             {
@@ -27,6 +32,7 @@ Shader "Unlit/BlackWhiteShader"
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+
             };
 
             sampler2D _MainTex;
@@ -37,14 +43,19 @@ Shader "Unlit/BlackWhiteShader"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
+                TRANSFER_VERTEX_TO_FRAGMENT(o)
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+
+                
+                
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                if (_ColourMode == 1)
+
+               fixed4 col = tex2D(_MainTex, i.uv);
+               if (_ColourMode == 1)
                 {
                     return col;
                 }
@@ -65,5 +76,11 @@ Shader "Unlit/BlackWhiteShader"
             }
             ENDCG
         }
+            Pass
+            {
+                Name "ShadowCaster"
+                Tags{ "LightMode" = "ShadowCaster"}
+                
+            }
     }
 }
