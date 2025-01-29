@@ -10,6 +10,8 @@ Shader "Unlit/PlayerShader"
     {
         Tags { "RenderType"="Opaque" }
         Cull Off
+        
+        
 
 
         Pass
