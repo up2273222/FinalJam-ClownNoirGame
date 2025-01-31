@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    public GameObject dialoguePanel;
-    private Vector3 _dialoguePanelStartPosition;
-    private Vector3 _dialoguePanelEndPosition;
+    
+    public RectTransform dialoguePanelRect;
+    private bool isDialoguePanelOpen;
+    private Vector2 panelStartPosition;
+    private Vector2 panelEndPosition;
     
     private void Awake()
     {
@@ -22,8 +24,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            _dialoguePanelStartPosition = dialoguePanel.transform.position;
-            _dialoguePanelEndPosition = new Vector3(dialoguePanel.transform.position.x - 160f, dialoguePanel.transform.position.y, dialoguePanel.transform.position.z);
+            panelStartPosition = new Vector2(dialoguePanelRect.anchoredPosition.x, dialoguePanelRect.anchoredPosition.y);
+            panelEndPosition =new Vector2(dialoguePanelRect.anchoredPosition.x - 160f, dialoguePanelRect.anchoredPosition.y);
         }
     }
 
@@ -32,13 +34,15 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if (dialoguePanel.transform.position == _dialoguePanelEndPosition)
+            if (isDialoguePanelOpen)
             {
-                dialoguePanel.transform.position = _dialoguePanelStartPosition;
+                dialoguePanelRect.DOAnchorPos(panelStartPosition, 1f).SetEase(Ease.InOutQuad);
+                isDialoguePanelOpen = false;
             }
             else
             {
-                dialoguePanel.transform.position = _dialoguePanelEndPosition;
+                dialoguePanelRect.DOAnchorPos(panelEndPosition, 1f).SetEase(Ease.InOutQuad);
+                isDialoguePanelOpen = true;
             }
         }
     }
