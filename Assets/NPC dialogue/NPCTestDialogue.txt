@@ -1,0 +1,2 @@
+NPC:This is a test dialogue^
+NPC:This is the second line of the test dialogue^
