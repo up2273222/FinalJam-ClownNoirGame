@@ -61,14 +61,14 @@ Shader "Unlit/BlackWhiteShader"
                 }
                 else
                 {
-                    float grayscale = dot(col.xyz, float3(0.3,0.59,0.11));
+                    float grayscale = dot(col.xyz, float3(0.3,0.59,0.11) * _ColourMode);
                      col.x = grayscale;
                      col.y = grayscale;
                      col.z = grayscale;
                      col.w = 1;
                      return col;
                 }
-                
+               
                 
                 
                 
