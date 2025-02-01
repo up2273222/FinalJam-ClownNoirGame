@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class GameManager : MonoBehaviour
     //UI variables
     public GameObject UICanvas;
     public RectTransform dialoguePanelRect;
-    private bool isDialoguePanelOpen;
+    public bool isDialoguePanelOpen;
+    public TextMeshProUGUI dialogueTextBox;
     private Vector2 panelStartPosition;
     private Vector2 panelEndPosition;
 
@@ -34,15 +36,17 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            //Set deafault values:
-            //Dialogue strat and end pos
+            //Set default values:
+            //Dialogue start and end pos
             //Sets UI to be visible
             //Sets gameplay cam to active cam
+            //Clear text box
             panelStartPosition = new Vector2(dialoguePanelRect.anchoredPosition.x, dialoguePanelRect.anchoredPosition.y);
             panelEndPosition =new Vector2(dialoguePanelRect.anchoredPosition.x - 300f, dialoguePanelRect.anchoredPosition.y);
             UICanvas.SetActive(true);
             GameplayVCam.Priority = 2;
             DialogueVCam.Priority = 1;
+            dialogueTextBox.text = "";
         }
     }
 
@@ -50,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
 
         //HERE FOR DEBUG
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Tab))
         {
             OpenCloseDialoguePanel();
         }
