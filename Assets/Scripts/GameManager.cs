@@ -55,15 +55,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 
-        //HERE FOR DEBUG
+        //Open/Close dialogue box
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             OpenCloseDialoguePanel();
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SwitchVCam();
-        }
+        
     }
 
 
@@ -103,11 +100,13 @@ public class GameManager : MonoBehaviour
 
     public void StartScroll()
     {
+        //Allows coroutine to be started from another script
         StartCoroutine(ScrollToBottom());
     }
     
     public IEnumerator ScrollToBottom()
     {
+        //Scrolls dialogue text box to the bottom when called
         yield return new WaitForEndOfFrame();
         scrollRect.verticalNormalizedPosition = 0;
     }
