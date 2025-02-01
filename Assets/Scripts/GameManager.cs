@@ -6,6 +6,7 @@ using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI dialogueTextBox;
     private Vector2 panelStartPosition;
     private Vector2 panelEndPosition;
+    public ScrollRect scrollRect;
 
     //Camera variables
     public CinemachineVirtualCamera GameplayVCam;
@@ -97,5 +99,16 @@ public class GameManager : MonoBehaviour
             DialogueVCam.Priority = 2;
         }
             
+    }
+
+    public void StartScroll()
+    {
+        StartCoroutine(ScrollToBottom());
+    }
+    
+    public IEnumerator ScrollToBottom()
+    {
+        yield return new WaitForEndOfFrame();
+        scrollRect.verticalNormalizedPosition = 0;
     }
 }

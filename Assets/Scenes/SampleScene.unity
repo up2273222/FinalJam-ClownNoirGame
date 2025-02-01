@@ -1923,6 +1923,7 @@ MonoBehaviour:
   dialoguePanelRect: {fileID: 1650937792}
   isDialoguePanelOpen: 0
   dialogueTextBox: {fileID: 1418792844}
+  scrollRect: {fileID: 1630680111}
   GameplayVCam: {fileID: 43180087}
   DialogueVCam: {fileID: 1446851771}
   DialogueVCamFocus: {fileID: 0}

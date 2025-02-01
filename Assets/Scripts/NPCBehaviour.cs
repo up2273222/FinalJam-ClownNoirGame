@@ -74,7 +74,8 @@ public class NPCBehaviour : MonoBehaviour
         if (currentLineIndex < lines.Length)
         {
             outputLine = lines[currentLineIndex];
-            GameManager.Instance.dialogueTextBox.text = GameManager.Instance.dialogueTextBox.text + "\n" + outputLine;
+            GameManager.Instance.dialogueTextBox.text += "\n" + outputLine;
+            GameManager.Instance.StartScroll();
             currentLineIndex++;
         }
         //If dialogue has finished, close dialogue
@@ -82,6 +83,7 @@ public class NPCBehaviour : MonoBehaviour
         {
             isDialogueActive = false;
             Array.Clear(lines, 0, lines.Length);
+            GameManager.Instance.dialogueTextBox.text += "\n";
             outputLine = "";
             GameManager.Instance.SwitchVCam();
             GameManager.Instance.OpenCloseDialoguePanel();
