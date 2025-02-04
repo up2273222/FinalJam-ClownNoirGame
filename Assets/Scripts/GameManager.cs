@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     
     //UI variables
     public GameObject UICanvas;
-    public Image PlayerPortrait;
+    public Sprite PlayerPortrait;
     public GameObject PortaitPanel;
     public RectTransform dialoguePanelRect;
     public bool isDialoguePanelOpen;
@@ -113,8 +113,8 @@ public class GameManager : MonoBehaviour
         scrollRect.verticalNormalizedPosition = 0;
     }
 
-    public void ChangePortrait(Image image)
+    public void SetPortrait(Sprite image)
     {
-       PortaitPanel.GetComponent<Image>().sprite = image.sprite;
+        PortaitPanel.GetComponent<Image>().sprite = image;
     }
 }

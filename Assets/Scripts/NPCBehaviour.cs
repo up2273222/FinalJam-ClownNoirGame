@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
+
+
 
 public class NPCBehaviour : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class NPCBehaviour : MonoBehaviour
     private string[] lines;
     private string outputLine;
     private string whoIsTalking;
-    private Image npcPortrait;
+    public Sprite npcPortrait;
 
 
 
@@ -77,7 +79,14 @@ public class NPCBehaviour : MonoBehaviour
         {
             outputLine = lines[currentLineIndex];
             whoIsTalking = outputLine.Split(":")[0];
-            print(whoIsTalking);
+            if (whoIsTalking != "You")
+            {
+                GameManager.Instance.SetPortrait(npcPortrait);
+            }
+            else
+            {
+                GameManager.Instance.SetPortrait(GameManager.Instance.PlayerPortrait);
+            }
             GameManager.Instance.dialogueTextBox.text += "\n" + outputLine;
             GameManager.Instance.StartScroll();
             currentLineIndex++;

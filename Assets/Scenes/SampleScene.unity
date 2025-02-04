@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NpcDialogue: {fileID: 4900000, guid: 3f20eab4c4dae8c458ac7bf0feb0728f, type: 3}
+  npcPortrait: {fileID: 21300000, guid: dc3555e82a924234cba3f93be652c6da, type: 3}
 --- !u!1 &639684002
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NpcDialogue: {fileID: 4900000, guid: 3f20eab4c4dae8c458ac7bf0feb0728f, type: 3}
+  npcPortrait: {fileID: 21300000, guid: fb4c47749b97e57429af973b73d05b32, type: 3}
 --- !u!1 &895069681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,7 +1819,7 @@ GameObject:
   - component: {fileID: 1823654212}
   - component: {fileID: 1823654211}
   m_Layer: 0
-  m_Name: Potrait box
+  m_Name: PortraitPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1996,6 +1998,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 1375179341}
+  PlayerPortrait: {fileID: 21300000, guid: c20cee37dc8c3044b9517966062bb2bc, type: 3}
+  PortaitPanel: {fileID: 1823654209}
   dialoguePanelRect: {fileID: 1650937792}
   isDialoguePanelOpen: 0
   dialogueTextBox: {fileID: 1418792844}
