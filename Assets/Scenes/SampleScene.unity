@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d2dee62a1fa9746a29f8ea018281ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NpcDialogue: {fileID: 0}
+  NpcDialogue: {fileID: 4900000, guid: 3f20eab4c4dae8c458ac7bf0feb0728f, type: 3}
 --- !u!1 &895069681
 GameObject:
   m_ObjectHideFlags: 0
