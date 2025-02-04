@@ -15,6 +15,7 @@ public class NPCBehaviour : MonoBehaviour
     private string[] lines;
     private string outputLine;
     private string whoIsTalking;
+    private Image npcPortrait;
 
 
 

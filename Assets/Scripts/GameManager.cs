@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     
     //UI variables
     public GameObject UICanvas;
+    public Image PlayerPortrait;
+    public GameObject PortaitPanel;
     public RectTransform dialoguePanelRect;
     public bool isDialoguePanelOpen;
     public TextMeshProUGUI dialogueTextBox;
@@ -109,5 +111,10 @@ public class GameManager : MonoBehaviour
         //Scrolls dialogue text box to the bottom when called
         yield return new WaitForEndOfFrame();
         scrollRect.verticalNormalizedPosition = 0;
+    }
+
+    public void ChangePortrait(Image image)
+    {
+       PortaitPanel.GetComponent<Image>().sprite = image.sprite;
     }
 }
