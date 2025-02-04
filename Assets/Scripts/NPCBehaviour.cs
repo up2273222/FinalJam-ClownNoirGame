@@ -14,6 +14,7 @@ public class NPCBehaviour : MonoBehaviour
     private bool firstClickFix;
     private string[] lines;
     private string outputLine;
+    private string whoIsTalking;
 
 
 
@@ -74,6 +75,8 @@ public class NPCBehaviour : MonoBehaviour
         if (currentLineIndex < lines.Length)
         {
             outputLine = lines[currentLineIndex];
+            whoIsTalking = outputLine.Split(":")[0];
+            print(whoIsTalking);
             GameManager.Instance.dialogueTextBox.text += "\n" + outputLine;
             GameManager.Instance.StartScroll();
             currentLineIndex++;
