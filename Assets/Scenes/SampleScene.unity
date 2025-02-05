@@ -224,10 +224,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 1375179341}
-  PlayerPortrait: {fileID: 21300000, guid: c20cee37dc8c3044b9517966062bb2bc, type: 3}
   PortaitPanel: {fileID: 1823654209}
+  PlayerPortrait: {fileID: 21300000, guid: c20cee37dc8c3044b9517966062bb2bc, type: 3}
+  playerPortraitRect: {fileID: 1823654210}
   dialoguePanelRect: {fileID: 1650937792}
   isDialoguePanelOpen: 0
+  isInDialogue: 0
   dialogueTextBox: {fileID: 1418792844}
   scrollRect: {fileID: 1630680111}
 --- !u!4 &52490058
@@ -2832,7 +2834,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 896.61914, y: -453.86835}
+  m_AnchoredPosition: {x: 590, y: -654}
   m_SizeDelta: {x: -1793.2384, y: -907.7367}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1823654211

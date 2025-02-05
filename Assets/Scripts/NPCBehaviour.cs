@@ -58,6 +58,8 @@ public class NPCBehaviour : MonoBehaviour
         lines = dialogue.Split("\n");
         currentLineIndex = 0;
         isDialogueActive = true;
+        UIManager.Instance.isInDialogue = isDialogueActive;
+        UIManager.Instance.OpenClosePortraitPanel();
         firstClickFix = false;
         if (UIManager.Instance.isDialoguePanelOpen)
         {
@@ -95,6 +97,8 @@ public class NPCBehaviour : MonoBehaviour
         else
         {
             isDialogueActive = false;
+            UIManager.Instance.isInDialogue = isDialogueActive;
+            UIManager.Instance.OpenClosePortraitPanel();
             Array.Clear(lines, 0, lines.Length);
             UIManager.Instance.dialogueTextBox.text += "\n";
             outputLine = "";

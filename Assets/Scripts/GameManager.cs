@@ -12,11 +12,6 @@ public class GameManager : MonoBehaviour
 {
     //Set as instance
     public static GameManager Instance;
-    
-   
-
-   
-    
     private void Awake()
     {
         if (Instance != null)
@@ -28,9 +23,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            
-            
-
         }
     }
 

@@ -11,15 +11,20 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     //UI variables
     public GameObject UICanvas;
-    public Sprite PlayerPortrait;
     public GameObject PortaitPanel;
+    public Sprite PlayerPortrait;
+    public RectTransform playerPortraitRect;
     public RectTransform dialoguePanelRect;
-    public bool isDialoguePanelOpen;
+    [HideInInspector]public bool isDialoguePanelOpen;
+    [HideInInspector]public bool isInDialogue;
     public TextMeshProUGUI dialogueTextBox;
-    private Vector2 panelStartPosition;
-    private Vector2 panelEndPosition;
     public ScrollRect scrollRect;
-
+    
+    private Vector2 dialoguePanelStartPosition;
+    private Vector2 dialoguePanelEndPosition;
+    
+    private Vector2 portaitPanelStartPosition;
+    private Vector2 portaitPanelEndPosition;
     private void Awake()
     {
         if (Instance != null)
@@ -30,8 +35,14 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            panelStartPosition = new Vector2(dialoguePanelRect.anchoredPosition.x, dialoguePanelRect.anchoredPosition.y);
-            panelEndPosition =new Vector2(dialoguePanelRect.anchoredPosition.x - 300f, dialoguePanelRect.anchoredPosition.y);
+            
+            dialoguePanelStartPosition = dialoguePanelRect.anchoredPosition;
+            dialoguePanelEndPosition =new Vector2(dialoguePanelRect.anchoredPosition.x - 300f, dialoguePanelRect.anchoredPosition.y);
+            
+            portaitPanelStartPosition = playerPortraitRect.anchoredPosition;
+            portaitPanelEndPosition = new Vector2(playerPortraitRect.anchoredPosition.x, playerPortraitRect.anchoredPosition.y + 200f);
+            
+            
             UICanvas.SetActive(true);
             dialogueTextBox.text = "";
         }
@@ -42,14 +53,26 @@ public class UIManager : MonoBehaviour
         //If dialogue panel is open, close it. If closed, open it
         //Uses DOTween for smooth movement
         if (isDialoguePanelOpen)
-        {
-            dialoguePanelRect.DOAnchorPos(panelStartPosition, 1f).SetEase(Ease.InOutQuad);
+        {   
+            dialoguePanelRect.DOAnchorPos(dialoguePanelStartPosition, 1f).SetEase(Ease.InOutQuad);
             isDialoguePanelOpen = false;
         }
-        else
+        else if (!isDialoguePanelOpen)
         {
-            dialoguePanelRect.DOAnchorPos(panelEndPosition, 1f).SetEase(Ease.InOutQuad);
+            dialoguePanelRect.DOAnchorPos(dialoguePanelEndPosition, 1f).SetEase(Ease.InOutQuad);
             isDialoguePanelOpen = true;
+        }
+    }
+
+    public void OpenClosePortraitPanel()
+    {
+        if (!isInDialogue)
+        {
+            playerPortraitRect.DOAnchorPos(portaitPanelStartPosition,1f).SetEase(Ease.InOutQuad);
+        }
+        else if (isInDialogue)
+        {
+            playerPortraitRect.DOAnchorPos(portaitPanelEndPosition,1f).SetEase(Ease.InOutQuad);
         }
     }
     
