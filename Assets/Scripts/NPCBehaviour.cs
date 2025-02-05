@@ -24,10 +24,10 @@ public class NPCBehaviour : MonoBehaviour
     void OnMouseDown()
     {
         //If clicked, initiate dialogue
-        if (GameManager.Instance.DialogueVCam.Priority != 2)
+        if (CameraManager.Instance.DialogueVCam.Priority != 2)
         {
-            GameManager.Instance.DialogueVCamFocus = gameObject.transform;
-            GameManager.Instance.SwitchVCam();
+            CameraManager.Instance.DialogueVCamFocus = gameObject.transform;
+            CameraManager.Instance.SwitchVCam();
             PlayDialogue();
         }
 
@@ -59,13 +59,13 @@ public class NPCBehaviour : MonoBehaviour
         currentLineIndex = 0;
         isDialogueActive = true;
         firstClickFix = false;
-        if (GameManager.Instance.isDialoguePanelOpen)
+        if (UIManager.Instance.isDialoguePanelOpen)
         {
             DisplayNextLine();
         }
-        else if (!GameManager.Instance.isDialoguePanelOpen)
+        else if (!UIManager.Instance.isDialoguePanelOpen)
         {
-            GameManager.Instance.OpenCloseDialoguePanel();
+            UIManager.Instance.OpenCloseDialoguePanel();
             DisplayNextLine();
         }
         
@@ -81,14 +81,14 @@ public class NPCBehaviour : MonoBehaviour
             whoIsTalking = outputLine.Split(":")[0];
             if (whoIsTalking != "You")
             {
-                GameManager.Instance.SetPortrait(npcPortrait);
+                UIManager.Instance.SetPortrait(npcPortrait);
             }
             else
             {
-                GameManager.Instance.SetPortrait(GameManager.Instance.PlayerPortrait);
+                UIManager.Instance.SetPortrait(UIManager.Instance.PlayerPortrait);
             }
-            GameManager.Instance.dialogueTextBox.text += "\n" + outputLine;
-            GameManager.Instance.StartScroll();
+            UIManager.Instance.dialogueTextBox.text += "\n" + outputLine;
+            UIManager.Instance.StartScroll();
             currentLineIndex++;
         }
         //If dialogue has finished, close dialogue
@@ -96,10 +96,10 @@ public class NPCBehaviour : MonoBehaviour
         {
             isDialogueActive = false;
             Array.Clear(lines, 0, lines.Length);
-            GameManager.Instance.dialogueTextBox.text += "\n";
+            UIManager.Instance.dialogueTextBox.text += "\n";
             outputLine = "";
-            GameManager.Instance.SwitchVCam();
-            GameManager.Instance.OpenCloseDialoguePanel();
+            CameraManager.Instance.SwitchVCam();
+            UIManager.Instance.OpenCloseDialoguePanel();
         }
     }
 
