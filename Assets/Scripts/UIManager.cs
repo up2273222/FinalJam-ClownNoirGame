@@ -80,7 +80,7 @@ public class UIManager : MonoBehaviour
     {
 
         //Open/Close dialogue box
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if(Input.GetKeyDown(KeyCode.Tab) && !isInDialogue)
         {
             OpenCloseDialoguePanel();
         }
