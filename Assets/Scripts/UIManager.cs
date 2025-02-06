@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     private bool isMapOpen;
     public GameObject MapPanel;
+    private Vector3 targetMapScale;
     
     public TextMeshProUGUI dialogueTextBox;
     public ScrollRect scrollRect;
@@ -46,6 +47,9 @@ public class UIManager : MonoBehaviour
             portaitPanelStartPosition = playerPortraitRect.anchoredPosition;
             portaitPanelEndPosition = new Vector2(playerPortraitRect.anchoredPosition.x, playerPortraitRect.anchoredPosition.y + 200f);
             
+            targetMapScale = MapPanel.transform.localScale;
+            MapPanel.transform.localScale = Vector3.zero;
+            
             
             UICanvas.SetActive(true);
             dialogueTextBox.text = "";
@@ -58,12 +62,12 @@ public class UIManager : MonoBehaviour
         //Uses DOTween for smooth movement
         if (isDialoguePanelOpen)
         {   
-            dialoguePanelRect.DOAnchorPos(dialoguePanelStartPosition, 1f).SetEase(Ease.InOutQuad);
+            dialoguePanelRect.DOAnchorPos(dialoguePanelStartPosition, 0.5f).SetEase(Ease.InOutQuad);
             isDialoguePanelOpen = false;
         }
         else if (!isDialoguePanelOpen)
         {
-            dialoguePanelRect.DOAnchorPos(dialoguePanelEndPosition, 1f).SetEase(Ease.InOutQuad);
+            dialoguePanelRect.DOAnchorPos(dialoguePanelEndPosition, 0.5f).SetEase(Ease.InOutQuad);
             isDialoguePanelOpen = true;
         }
     }
@@ -80,7 +84,7 @@ public class UIManager : MonoBehaviour
         else if (!isMapOpen)
         {
             //Open map
-            MapPanel.transform.DOScale(Vector3.one * 8, 1f).SetEase(Ease.OutBack);
+            MapPanel.transform.DOScale(targetMapScale, 1f).SetEase(Ease.OutBack);
             isMapOpen = !isMapOpen;
         }
         

@@ -14,13 +14,18 @@ public class NPCBehaviour : MonoBehaviour
     private int currentLineIndex;
     private bool isDialogueActive = false;
     private bool firstClickFix;
+    private bool isTyping;
     private string[] lines;
-    private string outputLine;
     private string whoIsTalking;
     public Sprite npcPortrait;
+    
+    private Coroutine typingCoroutine;
 
+    private string unfinishedLine;
+    
+    public float typingSpeed = 1f;
 
-
+    
     void OnMouseDown()
     {
         //If clicked, initiate dialogue
@@ -45,8 +50,18 @@ public class NPCBehaviour : MonoBehaviour
                 firstClickFix = true;
                 return;
             }
-            //Prints next line
-            DisplayNextLine();
+            
+            if(isTyping)
+            {
+                StopCoroutine(typingCoroutine);
+                UIManager.Instance.dialogueTextBox.text += lines[currentLineIndex -1];
+                isTyping = false;
+            }
+            else
+            {
+                DisplayNextLine();
+            }
+           
         }
     }
 
@@ -61,6 +76,7 @@ public class NPCBehaviour : MonoBehaviour
         UIManager.Instance.isInDialogue = isDialogueActive;
         UIManager.Instance.OpenClosePortraitPanel();
         firstClickFix = false;
+      
         if (UIManager.Instance.isDialoguePanelOpen)
         {
             DisplayNextLine();
@@ -79,8 +95,19 @@ public class NPCBehaviour : MonoBehaviour
         //If dialogue hasn't finished, print next line and increment index
         if (currentLineIndex < lines.Length)
         {
-            outputLine = lines[currentLineIndex];
-            whoIsTalking = outputLine.Split(":")[0];
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+            }
+
+            typingCoroutine = StartCoroutine(TypeCharacter(lines[currentLineIndex]));
+            currentLineIndex++;
+            
+            
+            
+            
+            //Changes portait
+            whoIsTalking = lines[currentLineIndex].Split(":")[0];
             if (whoIsTalking != "You")
             {
                 UIManager.Instance.SetPortrait(npcPortrait);
@@ -89,23 +116,42 @@ public class NPCBehaviour : MonoBehaviour
             {
                 UIManager.Instance.SetPortrait(UIManager.Instance.PlayerPortrait);
             }
-            UIManager.Instance.dialogueTextBox.text += "\n" + outputLine;
             UIManager.Instance.StartScroll();
-            currentLineIndex++;
         }
+        
         //If dialogue has finished, close dialogue
         else
         {
             isDialogueActive = false;
+            Array.Clear(lines, 0, lines.Length);
+            
+            CameraManager.Instance.SwitchVCam();
+            
+            UIManager.Instance.dialogueTextBox.text += "\n";
+            UIManager.Instance.OpenCloseDialoguePanel();
             UIManager.Instance.isInDialogue = isDialogueActive;
             UIManager.Instance.OpenClosePortraitPanel();
-            Array.Clear(lines, 0, lines.Length);
-            UIManager.Instance.dialogueTextBox.text += "\n";
-            outputLine = "";
-            CameraManager.Instance.SwitchVCam();
-            UIManager.Instance.OpenCloseDialoguePanel();
-        }
+        } 
     }
 
-   
+    IEnumerator TypeCharacter(string line)
+    {
+        isTyping = true;
+        int charIndex = 0;
+
+        foreach (char letter in line.ToCharArray())
+        {
+            yield return new WaitForSeconds(typingSpeed);
+            UIManager.Instance.dialogueTextBox.text += letter;
+            charIndex++;
+        }
+        UIManager.Instance.dialogueTextBox.text += "\n";
+        isTyping = false;
+
+        
+
+
+    }
+
+
 }
