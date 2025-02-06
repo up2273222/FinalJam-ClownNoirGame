@@ -54,7 +54,7 @@ public class NPCBehaviour : MonoBehaviour
             if(isTyping)
             {
                 StopCoroutine(typingCoroutine);
-                UIManager.Instance.dialogueTextBox.text += lines[currentLineIndex -1];
+                UIManager.Instance.dialogueTextBox.text += unfinishedLine;
                 isTyping = false;
             }
             else
@@ -101,12 +101,12 @@ public class NPCBehaviour : MonoBehaviour
             }
 
             typingCoroutine = StartCoroutine(TypeCharacter(lines[currentLineIndex]));
-            currentLineIndex++;
             
             
             
             
-            //Changes portait
+            
+            //Changes portrait
             whoIsTalking = lines[currentLineIndex].Split(":")[0];
             if (whoIsTalking != "You")
             {
@@ -117,6 +117,7 @@ public class NPCBehaviour : MonoBehaviour
                 UIManager.Instance.SetPortrait(UIManager.Instance.PlayerPortrait);
             }
             UIManager.Instance.StartScroll();
+            currentLineIndex++;
         }
         
         //If dialogue has finished, close dialogue
@@ -144,13 +145,10 @@ public class NPCBehaviour : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
             UIManager.Instance.dialogueTextBox.text += letter;
             charIndex++;
+            unfinishedLine = line.Substring(charIndex,line.Length - charIndex) + "\n";
         }
         UIManager.Instance.dialogueTextBox.text += "\n";
         isTyping = false;
-
-        
-
-
     }
 
 

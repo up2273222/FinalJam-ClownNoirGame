@@ -947,7 +947,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NpcDialogue: {fileID: 4900000, guid: 3f20eab4c4dae8c458ac7bf0feb0728f, type: 3}
   npcPortrait: {fileID: 21300000, guid: dc3555e82a924234cba3f93be652c6da, type: 3}
-  typingSpeed: 0.3
+  typingSpeed: 0.1
 --- !u!1 &639684002
 GameObject:
   m_ObjectHideFlags: 0
