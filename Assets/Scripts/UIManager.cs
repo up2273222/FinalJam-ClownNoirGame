@@ -17,6 +17,10 @@ public class UIManager : MonoBehaviour
     public RectTransform dialoguePanelRect;
     [HideInInspector]public bool isDialoguePanelOpen;
     [HideInInspector]public bool isInDialogue;
+
+    private bool isMapOpen;
+    public GameObject MapPanel;
+    
     public TextMeshProUGUI dialogueTextBox;
     public ScrollRect scrollRect;
     
@@ -64,6 +68,25 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void OpenCloseMap()
+    {
+        //InOutBack
+        if (isMapOpen)
+        {
+            //Close map
+            MapPanel.transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InBack);
+            isMapOpen = !isMapOpen;
+        }
+        else if (!isMapOpen)
+        {
+            //Open map
+            MapPanel.transform.DOScale(Vector3.one * 8, 1f).SetEase(Ease.OutBack);
+            isMapOpen = !isMapOpen;
+        }
+        
+    }
+    
+
     public void OpenClosePortraitPanel()
     {
         if (!isInDialogue)
@@ -83,6 +106,10 @@ public class UIManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab) && !isInDialogue)
         {
             OpenCloseDialoguePanel();
+        }
+        else if (Input.GetKeyDown(KeyCode.M) && !isInDialogue)
+        {
+            OpenCloseMap();
         }
         
     }
