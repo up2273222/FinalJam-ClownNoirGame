@@ -20,7 +20,17 @@ public class PlayerController : MonoBehaviour
     //Movement variables
     [Header("Movement")]
     public float speed;
-    private Vector2 _movement; 
+    private Vector2 _movement;
+    private bool canMove;
+    
+    //Clown nose throw variables
+    public GameObject clownNose;
+    public Transform throwTarget;
+    public int arcMaximumHeight = 10;
+    
+    
+    
+    
     private bool IsMoving()
     {
         return _movement.x != 0 || _movement.y != 0;
@@ -32,6 +42,7 @@ public class PlayerController : MonoBehaviour
         //Assign components to variables
         _rb = GetComponent<Rigidbody>();
         _material = GetComponent<Renderer>().material;
+        canMove = true;
     }
 
     private void Update()
@@ -61,12 +72,25 @@ public class PlayerController : MonoBehaviour
                 _animTimer += Time.deltaTime;
             }
         }
+
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            throwNose();
+            
+        }
+        
+
     }
 
     private void FixedUpdate()
     {
        //Moves the player
-        _rb.position += new Vector3(_movement.x * speed, 0, _movement.y * speed);
+       if (canMove)
+       {
+           _rb.position += new Vector3(_movement.x * speed, 0, _movement.y * speed);
+       }
+       
     }
 
     private float GetSpriteRotation(float angle)
@@ -82,6 +106,40 @@ public class PlayerController : MonoBehaviour
         _movement.x = Input.GetAxisRaw("Horizontal");
         _movement.y = Input.GetAxisRaw("Vertical");
     }
+    
+    
+    //Handle clown nose throwing
+
+    void throwNose()
+    {
+        GameObject Nose = Instantiate(clownNose, transform.position, Quaternion.identity);
+        Rigidbody Nose_rb = Nose.GetComponent<Rigidbody>();
+        
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Mathf.Abs(Camera.main.transform.position.z - throwTarget.position.z);
+        
+        Vector3 worldTargetLocation = Camera.main.ScreenToWorldPoint(mousePos);
+        
+        throwTarget.position = worldTargetLocation;
+
+        Nose_rb.velocity = CalculateThrowVelocity(throwTarget, Nose_rb);
+
+
+
+    }
+    
+    Vector3 CalculateThrowVelocity(Transform target, Rigidbody Nose_rb)
+    {
+        float displacementY = target.position.y - Nose_rb.position.y;
+        Vector3 displacementXZ = new Vector3(target.position.x - Nose_rb.position.x,0,target.position.z - Nose_rb.position.z);
+        
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * Physics.gravity.y * arcMaximumHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2*arcMaximumHeight/Physics.gravity.y) + Mathf.Sqrt(2*(displacementY - arcMaximumHeight)/Physics.gravity.y));
+
+        return velocityXZ + velocityY;
+    }
+    
+    
 
    
     
