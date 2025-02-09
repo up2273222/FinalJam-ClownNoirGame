@@ -1163,7 +1163,9 @@ MonoBehaviour:
   speed: 0.1
   clownNose: {fileID: 171038631624011378, guid: a4e1c63d46eab3245ba23b7b91f469db, type: 3}
   throwTarget: {fileID: 1542495252}
-  arcMaximumHeight: 5
+  arcMaximumHeight: 2
+  throwInitiated: 0
+  throwCompleted: 0
   trajectoryRenderer: {fileID: 0}
 --- !u!4 &765799708
 Transform:
