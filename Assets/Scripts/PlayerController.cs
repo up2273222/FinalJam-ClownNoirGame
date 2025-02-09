@@ -114,15 +114,20 @@ public class PlayerController : MonoBehaviour
     {
         GameObject Nose = Instantiate(clownNose, transform.position, Quaternion.identity);
         Rigidbody Nose_rb = Nose.GetComponent<Rigidbody>();
-        
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(Camera.main.transform.position.z - throwTarget.position.z);
-        
-        Vector3 worldTargetLocation = Camera.main.ScreenToWorldPoint(mousePos);
-        
-        throwTarget.position = worldTargetLocation;
 
-        Nose_rb.velocity = CalculateThrowVelocity(throwTarget, Nose_rb);
+        Ray targetRay;
+        RaycastHit targetHit;
+        
+        targetRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(targetRay, out targetHit))
+        {
+            throwTarget.position = new Vector3(targetHit.point.x, targetHit.point.y + 0.2f, targetHit.point.z);
+            Nose_rb.velocity = CalculateThrowVelocity(throwTarget, Nose_rb);
+        }
+        
+       
+
+        
 
 
 

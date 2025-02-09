@@ -1162,7 +1162,7 @@ MonoBehaviour:
   speed: 0.1
   clownNose: {fileID: 171038631624011378, guid: a4e1c63d46eab3245ba23b7b91f469db, type: 3}
   throwTarget: {fileID: 1542495252}
-  arcMaximumHeight: 10
+  arcMaximumHeight: 5
 --- !u!4 &765799708
 Transform:
   m_ObjectHideFlags: 0
