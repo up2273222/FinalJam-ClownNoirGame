@@ -6,11 +6,13 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 
+
 public class PlayerController : MonoBehaviour
 
 {
     private static readonly int MinMaxRotation = Shader.PropertyToID("_MinMaxRotation");
-
+    public static PlayerController Instance;
+    
     //Components
     private Rigidbody _rb;
     private Material _material;
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public bool throwInitiated;
     public bool throwCompleted;
     public LineRenderer trajectoryRenderer;
-    
+
     
     
     
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _material = GetComponent<Renderer>().material;
         trajectoryRenderer = GetComponent<LineRenderer>();
-      //  Nose_rb = clownNose.GetComponent<Rigidbody>();
+        Instance = this;
         canMove = true;
     }
 
@@ -80,7 +82,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (!throwInitiated)
@@ -89,22 +90,23 @@ public class PlayerController : MonoBehaviour
                 {
                     throwInitiated = true;
                     throwCompleted = false;
-                    GameObject Nose = Instantiate(clownNose, transform.position, Quaternion.identity);
-                    Nose_rb = Nose.GetComponent<Rigidbody>();
+                    GameObject nose = Instantiate(clownNose,transform.position,Quaternion.identity);
+                    Nose_rb = nose.GetComponent<Rigidbody>();
+                    
                 }
-                
             }
             else if (throwInitiated)
             {
                 throwCompleted = true;
             }
-
         }
-
+        
+        
+        
+        
         if (throwInitiated && !throwCompleted)
         {
             Nose_rb.useGravity = false;
-            
             Ray targetRay;
             RaycastHit targetHit;
             targetRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -113,16 +115,14 @@ public class PlayerController : MonoBehaviour
                 throwTarget.position = new Vector3(targetHit.point.x, targetHit.point.y + 0.2f, targetHit.point.z);
             }
             Nose_rb.position = transform.position;
-            DrawNoseTrajectory(Nose_rb.position,CalculateThrowVelocity(throwTarget,Nose_rb) );
+            DrawNoseTrajectory(Nose_rb.position,CalculateThrowVelocity(throwTarget,Nose_rb));
+            
         }
         else if (throwInitiated && throwCompleted)
         {
-            print("WAAA");
             Nose_rb.useGravity = true;
             throwNose(Nose_rb);
-        }
-        
-
+        } 
     }
 
     private void FixedUpdate()
@@ -151,12 +151,13 @@ public class PlayerController : MonoBehaviour
     
     
     //Handle clown nose throwing
-
     void throwNose(Rigidbody Nose_rb)
     {
         Nose_rb.velocity = CalculateThrowVelocity(throwTarget, Nose_rb);
+        trajectoryRenderer.positionCount = 0;
         throwInitiated = false;
         throwCompleted = false;
+        
     }
     
     Vector3 CalculateThrowVelocity(Transform target, Rigidbody Nose_rb)
@@ -187,6 +188,12 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+   
+
+   
+    
+   
     
     
 
