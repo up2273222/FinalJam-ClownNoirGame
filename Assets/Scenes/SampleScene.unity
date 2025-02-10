@@ -1971,6 +1971,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 765799708}
   cameraMat: {fileID: 2100000, guid: bca7ab8e9ef85e44c8ff14dd7af2c448, type: 2}
+  UseFilmGrain: 0
+  UseVignette: 0
+  VignetteRadius: 0.7
+  VignetteFeathering: 0.6
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0

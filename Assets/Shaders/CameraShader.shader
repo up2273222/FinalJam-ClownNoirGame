@@ -2,6 +2,10 @@ Shader "Unlit/CameraShader"
 {
     Properties
     {
+        _UseVignette("Vignette", Range(0,1)) = 1
+        _UseFilmGrain("FilmGrain",Range(0,1)) = 1
+        
+        
         _MainTex ("Texture", 2D) = "white" {}
         
         _GrainTex("Film grain texture", 2D) = "white" {}
@@ -12,8 +16,8 @@ Shader "Unlit/CameraShader"
         
         
         
-        _Radius ("Vignette radius",Range(0,1)) = 1
-        _Feather ("Vignette Feathering",Range(0,1)) = 1
+        _VignetteRadius ("Vignette radius",Range(0,1)) = 1
+        _VignetteFeather ("Vignette Feathering",Range(0,1)) = 1
     }
     SubShader
     {
@@ -42,13 +46,16 @@ Shader "Unlit/CameraShader"
             sampler2D _MainTex;
           //  float4 _MainTex_ST;
 
-            float _Radius;
-            float _Feather;
+            float _VignetteRadius;
+            float _VignetteFeather;
 
             
             sampler2D _GrainTex;
             float2 _Grain_Params1;
             float4 _Grain_Params2;
+
+            float _UseFilmGrain;
+            float _UseVignette;
             
 
             
@@ -79,20 +86,24 @@ Shader "Unlit/CameraShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //Get screen color
                 float3 col = tex2D(_MainTex,i.uv);
-
-                col += ApplyFilmGrain(col,i.uv);
-                
-                
                 
 
-                
-                float2 centerUVS = (float2 (i.uv * 2 - 1));
-                col *= (1-smoothstep(_Radius,_Radius+_Feather,length(centerUVS)));
-      
-                
+                if (_UseFilmGrain > 0.5)
+                {
+                    //Apply film grain
+                    col += ApplyFilmGrain(col,i.uv);
+                }
 
+                if (_UseVignette > 0.5)
+                {
+                    //Apply vignette
+                    float2 centerUVS = (float2 (i.uv * 2 - 1));
+                    col *= (1-smoothstep(_VignetteRadius,_VignetteRadius+_VignetteFeather,length(centerUVS)));
+                }
                 
+                //Output color
                 return fixed4(col,1);
             }
             ENDCG
