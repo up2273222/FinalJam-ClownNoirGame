@@ -30,6 +30,11 @@ public class UIManager : MonoBehaviour
     
     private Vector2 portaitPanelStartPosition;
     private Vector2 portaitPanelEndPosition;
+
+    public RectTransform InventoryRectPos;
+    private Vector2 TargetInvPos;
+    private Vector2 InvStartPos;
+    private bool IsInvOpen;
     private void Awake()
     {
         if (Instance != null)
@@ -49,6 +54,10 @@ public class UIManager : MonoBehaviour
             
             targetMapScale = MapPanel.transform.localScale;
             MapPanel.transform.localScale = Vector3.zero;
+
+            InvStartPos = InventoryRectPos.anchoredPosition;
+            TargetInvPos = new Vector2(InventoryRectPos.anchoredPosition.x, InventoryRectPos.anchoredPosition.y + 110f);
+            IsInvOpen = false;
             
             
             UICanvas.SetActive(true);
@@ -102,6 +111,20 @@ public class UIManager : MonoBehaviour
             playerPortraitRect.DOAnchorPos(portaitPanelEndPosition,1f).SetEase(Ease.InOutQuad);
         }
     }
+
+    public void OpenCloseInventory()
+    {
+        if(IsInvOpen)
+        {
+            InventoryRectPos.DOAnchorPos(InvStartPos, 0.5f).SetEase(Ease.InOutQuad);
+            IsInvOpen = false;
+        }
+        else if(!IsInvOpen)
+        {
+            InventoryRectPos.DOAnchorPos(TargetInvPos, 0.5f).SetEase(Ease.InOutQuad);
+            IsInvOpen=true;
+        }
+    }
     
     private void Update()
     {
@@ -114,6 +137,10 @@ public class UIManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.M) && !isInDialogue)
         {
             OpenCloseMap();
+        }
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            OpenCloseInventory();
         }
         
     }
