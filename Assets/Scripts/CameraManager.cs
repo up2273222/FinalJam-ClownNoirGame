@@ -10,6 +10,12 @@ public class CameraManager : MonoBehaviour
     public CinemachineVirtualCamera GameplayVCam;
     public CinemachineVirtualCamera DialogueVCam;
     public Transform DialogueVCamFocus;
+    //Shader variables
+    public Material cameraMat;
+    private bool UseVignette = true;
+    private bool UseFilmGrain = true;
+    private float VignetteRadius;
+    private float VignetteFeathering;
 
     private void Awake()
     {
@@ -23,6 +29,8 @@ public class CameraManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             GameplayVCam.Priority = 2;
             DialogueVCam.Priority = 1;
+            
+            
         }
     }
     
@@ -43,5 +51,55 @@ public class CameraManager : MonoBehaviour
         }
             
     }
+
+    public void EnableDisableVignette()
+    {
+        if (UseVignette)
+        {
+            cameraMat.SetFloat("_UseVignette", 0);
+            UseVignette = false;
+        }
+        else
+        {
+            cameraMat.SetFloat("_UseVignette", 1);
+            UseVignette = true;
+        }
+        
+    }
+
+    public void EnableDisableFilmGrain()
+    {
+        if (UseFilmGrain)
+        {
+            cameraMat.SetFloat("_UseFilmGrain", 0);
+            UseFilmGrain = false;
+        }
+        else
+        {
+            cameraMat.SetFloat("_UseFilmGrain", 1);
+            UseFilmGrain = true;
+        }
+    }
+
+    public void SetFeathering(float feathering)
+    {
+        cameraMat.SetFloat("_VignetteFeather", feathering);
+    }
+
+    public void SetVignetteRadius(float vignetteRadius)
+    {
+        cameraMat.SetFloat("_VignetteRadius", vignetteRadius);
     
+    }
+
+    private void SetShaderDefaults()
+    {
+        cameraMat.SetFloat("_UseFilmGrain", 1);
+        cameraMat.SetFloat("_UseVignette", 1);
+        cameraMat.SetFloat("_VignetteRadius", 0.7f);
+        cameraMat.SetFloat("_VignetteFeather", 0.6f);
+    }
+    
+
+
 }

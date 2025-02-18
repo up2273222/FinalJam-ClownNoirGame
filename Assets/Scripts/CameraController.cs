@@ -34,10 +34,9 @@ public class CameraController : MonoBehaviour
 
   private void Update()
   {
-    cameraMat.SetFloat("_VignetteRadius", VignetteRadius);
-    cameraMat.SetFloat("_VignetteFeather", VignetteFeathering);
-    cameraMat.SetFloat("_UseVignette", UseVignette ? 1 : 0);
-    cameraMat.SetFloat("_UseFilmGrain", UseFilmGrain ? 1 : 0);
+    
+    
+    
     
   }
 }

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+
+   public GameObject MainButtons;
+   public GameObject SettingsButtons;
    public void ExitGame()
    {
       Application.Quit();
@@ -22,11 +25,15 @@ public class MainMenu : MonoBehaviour
 
    public void OpenSettings()
    {
-      print("Open Settings");
+      SettingsButtons.SetActive(true);
+      MainButtons.SetActive(false);
    }
 
-   public void UseVignette()
+   public void CloseSettings()
    {
-     // CameraManager.Instance.Use
+    SettingsButtons.SetActive(false);
+    MainButtons.SetActive(true);
    }
+
+
 }

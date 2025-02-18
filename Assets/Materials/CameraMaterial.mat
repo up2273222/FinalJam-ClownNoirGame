@@ -84,10 +84,10 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _UseFilmGrain: 0
-    - _UseVignette: 0
-    - _VignetteFeather: 0.6
-    - _VignetteRadius: 0.7
+    - _UseFilmGrain: 1
+    - _UseVignette: 1
+    - _VignetteFeather: 0.7486376
+    - _VignetteRadius: 0.4175886
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
