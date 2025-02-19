@@ -96,8 +96,8 @@ public class CameraManager : MonoBehaviour
     {
         cameraMat.SetFloat("_UseFilmGrain", 1);
         cameraMat.SetFloat("_UseVignette", 1);
-        cameraMat.SetFloat("_VignetteRadius", 0.7f);
-        cameraMat.SetFloat("_VignetteFeather", 0.6f);
+        cameraMat.SetFloat("_VignetteRadius", 0.6f);
+        cameraMat.SetFloat("_VignetteFeather", 0.8f);
     }
     
 

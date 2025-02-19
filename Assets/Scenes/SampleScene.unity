@@ -996,7 +996,7 @@ MonoBehaviour:
   GameplayVCam: {fileID: 43180087}
   DialogueVCam: {fileID: 1446851771}
   DialogueVCamFocus: {fileID: 0}
-  cameraMat: {fileID: 0}
+  cameraMat: {fileID: 2100000, guid: bca7ab8e9ef85e44c8ff14dd7af2c448, type: 2}
 --- !u!4 &799561748
 Transform:
   m_ObjectHideFlags: 0
@@ -2629,6 +2629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc67c995c5243a4dbf4b9e182f9ab51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GlobalTextWriteSpeed: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

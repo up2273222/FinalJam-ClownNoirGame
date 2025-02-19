@@ -33,6 +33,7 @@ public class NPCBehaviour : MonoBehaviour
         {
             CameraManager.Instance.DialogueVCamFocus = gameObject.transform;
             CameraManager.Instance.SwitchVCam();
+            typingSpeed = GameManager.Instance.GlobalTextWriteSpeed;
             PlayDialogue();
         }
 
