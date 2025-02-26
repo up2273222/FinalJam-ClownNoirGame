@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,7 +34,12 @@ public class CameraManager : MonoBehaviour
             
         }
     }
-    
+
+    private void LateUpdate()
+    {
+        GameplayVCam.transform.position = new Vector3(PlayerController.Instance.transform.position.x, GameplayVCam.transform.position.y,GameplayVCam.transform.position.z);
+    }
+
     public void SwitchVCam()
     {
         //Used when talking to NPCs
