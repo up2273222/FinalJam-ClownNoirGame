@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
@@ -22,12 +23,19 @@ public class NPCBehaviour : MonoBehaviour
     private Coroutine typingCoroutine;
 
     private string unfinishedLine;
+
+    private NavMeshAgent navAgent;
     
 
 
     public bool FollowNose;
 
-    
+    private void Start()
+    {
+        navAgent = GetComponent<NavMeshAgent>();
+    }
+
+
     void OnMouseDown()
     {
         //If clicked, initiate dialogue
@@ -157,9 +165,10 @@ public class NPCBehaviour : MonoBehaviour
 
     public void MoveToNose(Vector3 targetLocation)
     {
-        if (FollowNose)
+        if (FollowNose && navAgent != null)
         {
-            transform.position = targetLocation;
+            navAgent.SetDestination(targetLocation);
+            print(gameObject.name + "moveing");
             FollowNose = false;
         }
         

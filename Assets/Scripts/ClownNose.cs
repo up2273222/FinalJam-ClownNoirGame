@@ -37,15 +37,12 @@ public class ClownNose : MonoBehaviour
               if (collider.gameObject.CompareTag("NPC"))
               {
                   npcsInRadius.Add(collider.gameObject);
-                  print(npcsInRadius.Count);
-                  print(npcsInRadius);
               }
           } 
        }
 
        if (npcsInRadius.Count > 0)
        {
-           print("A");
            foreach (GameObject npc in npcsInRadius)
            {
                float distance = Vector3.Distance(collisionPoint, npc.transform.position);
