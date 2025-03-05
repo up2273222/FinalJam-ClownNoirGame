@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
         trajectoryRenderer = GetComponent<LineRenderer>();
         Instance = this;
         canMove = true;
+        throwTarget.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
         
         if (throwInitiated && !throwCompleted)
         {
+            throwTarget.gameObject.SetActive(true);
             Nose_rb.useGravity = false;
             Ray targetRay;
             RaycastHit targetHit;
@@ -122,6 +124,7 @@ public class PlayerController : MonoBehaviour
         {
             Nose_rb.useGravity = true;
             throwNose(Nose_rb);
+            throwTarget.gameObject.SetActive(false);
         } 
     }
 

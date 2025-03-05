@@ -23,7 +23,9 @@ public class NPCBehaviour : MonoBehaviour
 
     private string unfinishedLine;
     
-    public float typingSpeed = 1f;
+
+
+    public bool FollowNose;
 
     
     void OnMouseDown()
@@ -33,7 +35,7 @@ public class NPCBehaviour : MonoBehaviour
         {
             CameraManager.Instance.DialogueVCamFocus = gameObject.transform;
             CameraManager.Instance.SwitchVCam();
-            typingSpeed = GameManager.Instance.GlobalTextWriteSpeed;
+
             PlayDialogue();
         }
 
@@ -143,13 +145,24 @@ public class NPCBehaviour : MonoBehaviour
 
         foreach (char letter in line.ToCharArray())
         {
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSeconds(GameManager.Instance.GlobalTextWriteSpeed);
             UIManager.Instance.dialogueTextBox.text += letter;
             charIndex++;
             unfinishedLine = line.Substring(charIndex,line.Length - charIndex) + "\n";
         }
         UIManager.Instance.dialogueTextBox.text += "\n";
         isTyping = false;
+    }
+
+
+    public void MoveToNose(Vector3 targetLocation)
+    {
+        if (FollowNose)
+        {
+            transform.position = targetLocation;
+            FollowNose = false;
+        }
+        
     }
 
 
