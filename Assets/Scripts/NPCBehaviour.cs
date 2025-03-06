@@ -21,6 +21,8 @@ public class NPCBehaviour : MonoBehaviour
     public Sprite npcPortrait;
     
     private Coroutine typingCoroutine;
+    
+    private Collider npcCollider;
 
     private string unfinishedLine;
 
@@ -33,6 +35,13 @@ public class NPCBehaviour : MonoBehaviour
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
+        npcCollider = GetComponent<Collider>();
+        if (navAgent)
+        {
+            navAgent.updateUpAxis = false;
+            navAgent.updateRotation = false;
+            navAgent.baseOffset = npcCollider.bounds.size.y / transform.localScale.y * 0.5f;
+        }
     }
 
 
