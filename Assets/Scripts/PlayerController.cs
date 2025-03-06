@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     //Clown nose throw variables
     public GameObject clownNose;
     private Rigidbody Nose_rb;
+    private Collider Nose_collider;
     public Transform throwTarget;
     public int arcMaximumHeight = 10;
     public bool throwInitiated;
@@ -93,6 +94,8 @@ public class PlayerController : MonoBehaviour
                     throwCompleted = false;
                     GameObject nose = Instantiate(clownNose,transform.position,Quaternion.identity);
                     Nose_rb = nose.GetComponent<Rigidbody>();
+                    Nose_collider = nose.GetComponent<Collider>();
+                    Nose_collider.enabled = false;
                     
                 }
             }
@@ -117,12 +120,14 @@ public class PlayerController : MonoBehaviour
                 throwTarget.position = new Vector3(targetHit.point.x, targetHit.point.y + 0.2f, targetHit.point.z);
             }
             Nose_rb.position = transform.position;
+            
             DrawNoseTrajectory(Nose_rb.position,CalculateThrowVelocity(throwTarget,Nose_rb));
             
         }
         else if (throwInitiated && throwCompleted)
         {
             Nose_rb.useGravity = true;
+            Nose_collider.enabled = true;
             throwNose(Nose_rb);
             throwTarget.gameObject.SetActive(false);
         } 
