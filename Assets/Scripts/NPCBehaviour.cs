@@ -11,6 +11,8 @@ using UnityEngine.UI;
 
 public class NPCBehaviour : MonoBehaviour
 {
+    
+    private static readonly int MinMaxRotation = Shader.PropertyToID("_MinMaxRotation");
     public TextAsset NpcDialogue;
     private int currentLineIndex;
     private bool isDialogueActive = false;
@@ -28,12 +30,18 @@ public class NPCBehaviour : MonoBehaviour
 
     private NavMeshAgent navAgent;
     
+    private Material npcMaterial;
+
+    private float _animTimer;
+    private const float WalkAnimAngle = 0.3f;
+    
 
 
     public bool FollowNose;
 
     private void Start()
     {
+        npcMaterial = GetComponent<Renderer>().material;
         navAgent = GetComponent<NavMeshAgent>();
         npcCollider = GetComponent<Collider>();
         if (navAgent)
@@ -61,6 +69,8 @@ public class NPCBehaviour : MonoBehaviour
 
     private void Update()
     {
+        //Update animation
+        npcMaterial.SetFloat(MinMaxRotation,GetSpriteRotation(WalkAnimAngle));
         //Check for left click to advance dialogue
         if (isDialogueActive && Input.GetMouseButtonDown(0))
         {
@@ -83,6 +93,40 @@ public class NPCBehaviour : MonoBehaviour
             }
            
         }
+        
+        
+        if (navAgent)
+        {
+           if (navAgent.velocity.magnitude > 0.1f)
+           {
+               _animTimer += Time.deltaTime;
+               if (_animTimer > Mathf.PI/5)
+               {
+                   _animTimer = 0;
+               }
+           }
+           else if (navAgent.velocity.magnitude < 0.1f)
+           {
+               if (_animTimer > Mathf.PI/5 || _animTimer == 0)
+               {
+                   _animTimer = 0;
+               }
+               else if (_animTimer < Mathf.PI/5)
+               {
+                   _animTimer += Time.deltaTime;
+               }
+           } 
+        }
+        
+        
+        
+    }
+    
+    private float GetSpriteRotation(float angle)
+    {
+        //Returns the angle to set the UVs in shader to
+        return Mathf.Sin((_animTimer-(Mathf.PI)) * 10) * angle;
+
     }
 
 
@@ -177,8 +221,6 @@ public class NPCBehaviour : MonoBehaviour
         if (FollowNose && navAgent != null)
         {
             navAgent.SetDestination(targetLocation);
-            print(gameObject.name + "moveing");
-            FollowNose = false;
         }
         
     }

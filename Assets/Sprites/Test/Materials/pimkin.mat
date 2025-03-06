@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: pimkin
-  m_Shader: {fileID: 4800000, guid: ca1e08c98452ceb42b1aaf2bde2b00f8, type: 3}
+  m_Shader: {fileID: 4800000, guid: ba8ddc51349346b4cb049ccfae3356d1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -70,6 +70,7 @@ Material:
     - _Glossiness: 1
     - _GlossyReflections: 1
     - _Metallic: 0
+    - _MinMaxRotation: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
