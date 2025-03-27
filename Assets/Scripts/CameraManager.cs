@@ -17,6 +17,7 @@ public class CameraManager : MonoBehaviour
     private bool UseFilmGrain = true;
     private float VignetteRadius;
     private float VignetteFeathering;
+    private float Brightness;
 
     private void Awake()
     {
@@ -96,6 +97,11 @@ public class CameraManager : MonoBehaviour
     {
         cameraMat.SetFloat("_VignetteRadius", vignetteRadius);
     
+    }
+
+    public void SetBrightness(float brightness)
+    {
+        cameraMat.SetFloat("_Brightness", brightness);
     }
 
     private void SetShaderDefaults()

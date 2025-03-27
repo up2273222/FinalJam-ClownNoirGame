@@ -162,4 +162,18 @@ public class UIManager : MonoBehaviour
     {
         PortaitPanel.GetComponent<Image>().sprite = image;
     }
+
+    public void FastTravel()
+    {
+        CameraManager.Instance.SetBrightness(0f);
+        OpenCloseMap();
+        StartCoroutine(FadeToBlackDelay(1f));
+
+    }
+
+    IEnumerator FadeToBlackDelay(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        CameraManager.Instance.SetBrightness(1f);
+    }
 }

@@ -13,6 +13,8 @@ Shader "Unlit/CameraShader"
         _Grain_Params1("Grain control 1", Vector) = (1,0.5,0,0)
         _Grain_Params2("Grain control 2", Vector) = (1,1,0,0)
         
+        _Brightness("Brightness",Range(0,1)) = 1
+        
         
         
         
@@ -56,6 +58,8 @@ Shader "Unlit/CameraShader"
 
             float _UseFilmGrain;
             float _UseVignette;
+
+            float _Brightness;
             
 
             
@@ -104,6 +108,9 @@ Shader "Unlit/CameraShader"
                 }
                 
                 //Output color
+
+                col.xyz = lerp( float3(0,0,0) ,col.xyz, _Brightness);
+                
                 return fixed4(col,1);
             }
             ENDCG

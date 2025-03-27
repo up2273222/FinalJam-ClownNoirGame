@@ -85,7 +85,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _UseFilmGrain: 0
-    - _UseVignette: 1
+    - _UseVignette: 0
     - _VignetteFeather: 0.57857144
     - _VignetteRadius: 0.7714286
     - _ZWrite: 1
