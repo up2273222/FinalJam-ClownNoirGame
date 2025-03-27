@@ -165,15 +165,18 @@ public class UIManager : MonoBehaviour
 
     public void FastTravel()
     {
-        CameraManager.Instance.SetBrightness(0f);
+        CameraManager.Instance.isFading = true;
+        DOTween.To(() => CameraManager.Instance.Brightness, x => CameraManager.Instance.Brightness = x, 0f,1f);
         OpenCloseMap();
-        StartCoroutine(FadeToBlackDelay(1f));
+        StartCoroutine(FadeToBlackDelay(1.5f));
 
     }
 
     IEnumerator FadeToBlackDelay(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        CameraManager.Instance.SetBrightness(1f);
+        DOTween.To(() => CameraManager.Instance.Brightness, x => CameraManager.Instance.Brightness = x, 1f,1f);
+        yield return new WaitForSeconds(waitTime);
+        CameraManager.Instance.isFading = false;
     }
 }

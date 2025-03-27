@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class MapFastTravel : MonoBehaviour
 {
- public GameObject place1Point; 
+ public Transform place1Point; 
  
  
  
  public void LoadArea1()
  {
   UIManager.Instance.FastTravel();
-  PlayerController.Instance.transform.position = place1Point.transform.position;
+  StartCoroutine(LoadDelay(place1Point));
+ }
+
+ IEnumerator LoadDelay(Transform tpPosition)
+ {
+  yield return new WaitForSeconds(1f);
+  PlayerController.Instance.transform.position = tpPosition.position;
  }
     
     

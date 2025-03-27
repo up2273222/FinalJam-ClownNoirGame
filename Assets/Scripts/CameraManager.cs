@@ -17,7 +17,9 @@ public class CameraManager : MonoBehaviour
     private bool UseFilmGrain = true;
     private float VignetteRadius;
     private float VignetteFeathering;
-    private float Brightness;
+    public float Brightness;
+
+    public bool isFading = false;
 
     private void Awake()
     {
@@ -31,14 +33,26 @@ public class CameraManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             GameplayVCam.Priority = 2;
             DialogueVCam.Priority = 1;
-            
-            
+            Brightness = 1.0f;
+            SetBrightness(Brightness);
+
+
         }
     }
 
     private void LateUpdate()
     {
         GameplayVCam.transform.position = new Vector3(PlayerController.Instance.transform.position.x, GameplayVCam.transform.position.y,GameplayVCam.transform.position.z);
+       
+    }
+
+    private void Update()
+    {
+        if (isFading)
+        {
+            SetBrightness(Brightness);
+        }
+            
     }
 
     public void SwitchVCam()
