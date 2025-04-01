@@ -42,7 +42,11 @@ public class CameraManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        GameplayVCam.transform.position = new Vector3(PlayerController.Instance.transform.position.x, GameplayVCam.transform.position.y,GameplayVCam.transform.position.z);
+        if (PlayerController.Instance)
+        {
+            GameplayVCam.transform.position = new Vector3(PlayerController.Instance.transform.position.x, GameplayVCam.transform.position.y,GameplayVCam.transform.position.z);
+        }
+        
        
     }
 

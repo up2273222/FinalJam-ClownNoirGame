@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b1bda193f09a6448ce4c66b2f0eb17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  place1Point: {fileID: 312556075}
+  place1Point: {fileID: 312556076}
 --- !u!1 &478056150
 GameObject:
   m_ObjectHideFlags: 0
