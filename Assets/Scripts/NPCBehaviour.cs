@@ -172,14 +172,11 @@ public class NPCBehaviour : MonoBehaviour
             
             //Changes portrait
             whoIsTalking = lines[currentLineIndex].Split(":")[0];
-            if (whoIsTalking != "You")
-            {
-                UIManager.Instance.SetPortrait(npcPortrait);
-            }
-            else
-            {
-                UIManager.Instance.SetPortrait(UIManager.Instance.PlayerPortrait);
-            }
+            
+            
+            SetPortrait(whoIsTalking);
+            
+            
             UIManager.Instance.StartScroll();
             currentLineIndex++;
         }
@@ -223,6 +220,20 @@ public class NPCBehaviour : MonoBehaviour
             navAgent.SetDestination(targetLocation);
         }
         
+    }
+
+    public void SetPortrait(string speakerName)
+    {
+        Sprite portrait = Resources.Load<Sprite>($"Portraits/{speakerName}");
+        if (portrait)
+        {
+            UIManager.Instance.SetPortrait(portrait);
+        }
+        else
+        {
+           portrait = Resources.Load<Sprite>($"Portraits/MISSING");
+           UIManager.Instance.SetPortrait(portrait);
+        }
     }
 
 
