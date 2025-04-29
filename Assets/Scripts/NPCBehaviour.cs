@@ -172,8 +172,6 @@ public class NPCBehaviour : MonoBehaviour
             
             //Changes portrait
             whoIsTalking = lines[currentLineIndex].Split(":")[0];
-            
-            
             SetPortrait(whoIsTalking);
             
             
