@@ -138,6 +138,8 @@ public class UIManager : MonoBehaviour
         {
             OpenCloseMap();
         }
+
+        //Open/Close inventory
         if(Input.GetKeyDown(KeyCode.I))
         {
             OpenCloseInventory();
