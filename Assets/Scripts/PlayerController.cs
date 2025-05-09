@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
         //Sets the rotation of player UVs in shader
         _material.SetFloat(MinMaxRotation,GetSpriteRotation(WalkAnimAngle));
         //Handles the animation looping
-        //TODO: Fix the Mathf.PI/5 so that it returns to 0 rather than going all the way to the right first
         if (IsMoving())
         {
             _animTimer += Time.deltaTime;
@@ -104,10 +103,6 @@ public class PlayerController : MonoBehaviour
                 throwCompleted = true;
             }
         }
-        
-        
-        
-        
         if (throwInitiated && !throwCompleted)
         {
             throwTarget.gameObject.SetActive(true);

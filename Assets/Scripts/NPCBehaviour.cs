@@ -63,8 +63,6 @@ public class NPCBehaviour : MonoBehaviour
 
             PlayDialogue();
         }
-
-
     }
 
     private void Update()
@@ -74,7 +72,7 @@ public class NPCBehaviour : MonoBehaviour
         //Check for left click to advance dialogue
         if (isDialogueActive && Input.GetMouseButtonDown(0))
         {
-            //Prevents printing 2 lines on the first click, probably a janky fix but it works lol
+            //Prevents printing 2 lines on the first click
             if (!firstClickFix)
             {
                 firstClickFix = true;
@@ -91,10 +89,7 @@ public class NPCBehaviour : MonoBehaviour
             {
                 DisplayNextLine();
             }
-           
         }
-        
-        
         if (navAgent)
         {
            if (navAgent.velocity.magnitude > 0.1f)
@@ -117,17 +112,9 @@ public class NPCBehaviour : MonoBehaviour
                }
            } 
         }
-        
-        
-        
     }
     
-    private float GetSpriteRotation(float angle)
-    {
-        //Returns the angle to set the UVs in shader to
-        return Mathf.Sin((_animTimer-(Mathf.PI)) * 10) * angle;
-
-    }
+  
 
 
     public void PlayDialogue()
@@ -150,8 +137,6 @@ public class NPCBehaviour : MonoBehaviour
             UIManager.Instance.OpenCloseDialoguePanel();
             DisplayNextLine();
         }
-        
-        
     }
 
     void DisplayNextLine()
@@ -165,10 +150,6 @@ public class NPCBehaviour : MonoBehaviour
             }
 
             typingCoroutine = StartCoroutine(TypeCharacter(lines[currentLineIndex]));
-            
-            
-            
-            
             
             //Changes portrait
             whoIsTalking = lines[currentLineIndex].Split(":")[0];
@@ -219,7 +200,11 @@ public class NPCBehaviour : MonoBehaviour
         }
         
     }
-
+    private float GetSpriteRotation(float angle)
+    {
+        //Returns the angle to set the UVs in shader to
+        return Mathf.Sin((_animTimer-(Mathf.PI)) * 10) * angle;
+    }
     public void SetPortrait(string speakerName)
     {
         Sprite portrait = Resources.Load<Sprite>($"Portraits/{speakerName}");
