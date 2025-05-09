@@ -77,8 +77,7 @@ Shader "Unlit/CameraShader"
 
             float3 ApplyFilmGrain(float3 color, float2 uv)
             {
-
-                                
+                
                 float2 grainUV = uv * _Grain_Params2.xy + _Grain_Params2.zw;
                 float4 grain = tex2D(_GrainTex, grainUV);
                 

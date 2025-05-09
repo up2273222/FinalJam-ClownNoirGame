@@ -190,6 +190,19 @@ public class NPCBehaviour : MonoBehaviour
         UIManager.Instance.dialogueTextBox.text += "\n";
         isTyping = false;
     }
+    public void SetPortrait(string speakerName)
+    {
+        Sprite portrait = Resources.Load<Sprite>($"Portraits/{speakerName}");
+        if (portrait)
+        {
+            UIManager.Instance.SetPortrait(portrait);
+        }
+        else
+        {
+            portrait = Resources.Load<Sprite>($"Portraits/MISSING");
+            UIManager.Instance.SetPortrait(portrait);
+        }
+    }
 
 
     public void MoveToNose(Vector3 targetLocation)
@@ -205,19 +218,7 @@ public class NPCBehaviour : MonoBehaviour
         //Returns the angle to set the UVs in shader to
         return Mathf.Sin((_animTimer-(Mathf.PI)) * 10) * angle;
     }
-    public void SetPortrait(string speakerName)
-    {
-        Sprite portrait = Resources.Load<Sprite>($"Portraits/{speakerName}");
-        if (portrait)
-        {
-            UIManager.Instance.SetPortrait(portrait);
-        }
-        else
-        {
-           portrait = Resources.Load<Sprite>($"Portraits/MISSING");
-           UIManager.Instance.SetPortrait(portrait);
-        }
-    }
+   
 
 
 }

@@ -55,6 +55,13 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         throwTarget.gameObject.SetActive(false);
     }
+    
+    private float GetSpriteRotation(float angle)
+    {
+        //Returns the angle to set the UVs in shader to
+        return Mathf.Sin((_animTimer-(Mathf.PI)) * 10) * angle;
+
+    }
 
     private void Update()
     {
@@ -138,12 +145,7 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    private float GetSpriteRotation(float angle)
-    {
-        //Returns the angle to set the UVs in shader to
-        return Mathf.Sin((_animTimer-(Mathf.PI)) * 10) * angle;
-
-    }
+    
 
     private void GetMovementAxis()
     {

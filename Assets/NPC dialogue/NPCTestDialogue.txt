@@ -1,4 +1,3 @@
-NPC:This is a test dialogue
-jeff:This is the second line of the test dialogue
-You:Wowie!
-pimkin:I know right
+jeff: Welcome to the testing void!
+You: Wow, I love testing!
+jeff: You're testing dialogue right now!

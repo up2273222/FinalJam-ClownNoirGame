@@ -8,12 +8,10 @@ public class DragDrop : MonoBehaviour
     private bool isDragging = false;
     private Vector3 offset;
     private Camera mainCamera;
-
     void Start()
     {
         mainCamera = Camera.main;
     }
-
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Left-click
@@ -36,7 +34,6 @@ public class DragDrop : MonoBehaviour
             MoveObject();
         }
     }
-
     private void MoveObject()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
