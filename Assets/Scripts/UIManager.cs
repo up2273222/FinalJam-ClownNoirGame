@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
             dialoguePanelEndPosition =new Vector2(dialoguePanelRect.anchoredPosition.x - 300f, dialoguePanelRect.anchoredPosition.y);
             
             portaitPanelStartPosition = playerPortraitRect.anchoredPosition;
-            portaitPanelEndPosition = new Vector2(playerPortraitRect.anchoredPosition.x, playerPortraitRect.anchoredPosition.y + 200f);
+            portaitPanelEndPosition = new Vector2(playerPortraitRect.anchoredPosition.x, playerPortraitRect.anchoredPosition.y + 250f);
             
             targetMapScale = MapPanel.transform.localScale;
             MapPanel.transform.localScale = Vector3.zero;
