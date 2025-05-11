@@ -10,6 +10,8 @@ public class CameraManager : MonoBehaviour
     //Camera variables
     public CinemachineVirtualCamera GameplayVCam;
     public CinemachineVirtualCamera DialogueVCam;
+    public CinemachineVirtualCamera BallpitVCam;
+    public CinemachineVirtualCamera TornPhotoVCam;
     public Transform DialogueVCamFocus;
     //Shader variables
     public Material cameraMat;

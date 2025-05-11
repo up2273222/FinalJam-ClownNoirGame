@@ -67,6 +67,7 @@ public class NPCBehaviour : MonoBehaviour
 
     private void Update()
     {
+      
         //Update animation
         npcMaterial.SetFloat(MinMaxRotation,GetSpriteRotation(WalkAnimAngle));
         //Check for left click to advance dialogue
@@ -83,6 +84,7 @@ public class NPCBehaviour : MonoBehaviour
             {
                 StopCoroutine(typingCoroutine);
                 UIManager.Instance.dialogueTextBox.text += unfinishedLine;
+                UIManager.Instance.StartScroll();
                 isTyping = false;
             }
             else
@@ -148,6 +150,7 @@ public class NPCBehaviour : MonoBehaviour
             {
                 StopCoroutine(typingCoroutine);
             }
+            
 
             typingCoroutine = StartCoroutine(TypeCharacter(lines[currentLineIndex]));
             
@@ -156,8 +159,10 @@ public class NPCBehaviour : MonoBehaviour
             SetPortrait(whoIsTalking);
             
             
-            UIManager.Instance.StartScroll();
+            
+           
             currentLineIndex++;
+            
         }
         
         //If dialogue has finished, close dialogue
@@ -184,6 +189,7 @@ public class NPCBehaviour : MonoBehaviour
         {
             yield return new WaitForSeconds(GameManager.Instance.GlobalTextWriteSpeed);
             UIManager.Instance.dialogueTextBox.text += letter;
+            UIManager.Instance.StartScroll();
             charIndex++;
             unfinishedLine = line.Substring(charIndex,line.Length - charIndex) + "\n";
         }
