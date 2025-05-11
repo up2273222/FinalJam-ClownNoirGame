@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public Transform ballPitCenter;
     private List<GameObject> _ballList = new List<GameObject>();
     private GameObject _bodyRef;
+    //Torn photo
+    public int photoCounter;
 
 
     
@@ -68,6 +70,27 @@ public class GameManager : MonoBehaviour
         CameraManager.Instance.BallpitVCam.Priority = -100;
         ClearBallPit();
     }
+
+    public void StartTornPhotoMinigame()
+    {
+        CameraManager.Instance.TornPhotoVCam.Priority = 100;
+        photoCounter = 0;
+    }
+
+    public void EndTornPhotoMinigame()
+    {
+        StartCoroutine(waitForEndOfTornPhoto());
+    }
+
+    public void checkPhotoState()
+    {
+        photoCounter++;
+        if (photoCounter == 5)
+        {
+            EndTornPhotoMinigame();
+        }
+    }
+    
     
     private void PopulateBallPit()
     {
@@ -83,7 +106,7 @@ public class GameManager : MonoBehaviour
             Vector3 spawnPos = randPos + ballPitCenter.position;
             GameObject ball =  Instantiate(ballPrefab, spawnPos, Quaternion.identity);
             _ballList.Add(ball);
-      
+            
         }
         
         Vector3 randbodyPos = new Vector3(
@@ -102,8 +125,6 @@ public class GameManager : MonoBehaviour
             Destroy(_ballList[i]);
         }
         Destroy(_bodyRef);
-
-        
     }
 
 
@@ -120,5 +141,11 @@ public class GameManager : MonoBehaviour
             CameraManager.Instance.EnableDisableFilmGrain();
         }
        
+    }
+
+    IEnumerator waitForEndOfTornPhoto()
+    {
+        yield return new WaitForSeconds(2);
+        CameraManager.Instance.TornPhotoVCam.Priority = -100;
     }
 }
